@@ -33,17 +33,17 @@ require_once "./simple_html_dom.php";
     <?php
     if ($_SERVER['REQUEST_METHOD'] == 'POST')
     {
-      $url = $_POST['url'];
-      if (empty($url)) {
+      $link = $_POST['url'];
+      if (empty($link)) {
         echo 'Url is emty';
       }
       else
       {
-        echo $url;
+        echo $link;
       }
     }
 
-    $html = file_get_html($url);
+    $html = file_get_html($link);
     
     $i = 0;
     foreach ($html->find('img') as $el)
