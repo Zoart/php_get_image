@@ -38,7 +38,7 @@ require_once "./simple_html_dom.php";
     {
       $file_name = basename($url);
 
-      if (file_put_contents($file_name, file_get_contents($url)))
+      if (file_put_contents('./img/' . $file_name, file_get_contents($url)))
       {
         echo 'Downloaded successfully';
       }
