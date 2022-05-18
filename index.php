@@ -27,13 +27,32 @@ require_once "./simple_html_dom.php";
     ">
     <input class="input-area" placeholder="input url here" 
     type='text' name='url'>
+    <input class="input-area" placeholder="input min width of image" 
+    type='text' name='width'>
     <input type="submit">
     </form>
 
     <?php
+
+    function download_image($url)
+    {
+      $file_name = basename($url);
+
+      if (file_put_contents($file_name, file_get_contents($url)))
+      {
+        echo 'Downloaded successfully';
+      }
+      else
+      {
+        echo "failed";
+      }
+    }
+
     if ($_SERVER['REQUEST_METHOD'] == 'POST')
     {
       $link = $_POST['url'];
+      $width = $_POST['width'];
+
       if (empty($link)) {
         echo 'Url is emty';
       }
@@ -41,9 +60,18 @@ require_once "./simple_html_dom.php";
       {
         echo $link;
       }
+
+      if (empty($width)) {
+        echo 'width is emty';
+      }
+      else
+      {
+        echo $width;
+      }
     }
 
     $html = file_get_html($link);
+    
     
     $i = 0;
     foreach ($html->find('img') as $el)
@@ -63,12 +91,17 @@ require_once "./simple_html_dom.php";
       }
       else
       {
-        echo $pos_www . $pos_http . '<br>';
-        echo $el->src . '<br>';
-        echo '<img src="' . $el->src . '">' . '<br>';
-        echo 'Width: ' . $el->width . '<br>';
+        if ($el->width >= $width)
+        {
+          echo $el->src . '<br>';
+          echo '<img src="' . $el->src . '">' . '<br>';
+          echo 'Width: ' . $el->width . '<br>';
+          download_image($el->src);
+        }
+        
       }
     }
+    
     ?>
     
   </section>

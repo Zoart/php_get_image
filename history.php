@@ -1,3 +1,4 @@
+<!-- Simple get image from site -->
 <?php
 require_once "./simple_html_dom.php";
 ?>
@@ -27,6 +28,8 @@ require_once "./simple_html_dom.php";
     ">
     <input class="input-area" placeholder="input url here" 
     type='text' name='url'>
+    <input class="input-area" placeholder="input min width of image" 
+    type='text' name='width'>
     <input type="submit">
     </form>
 
@@ -34,12 +37,21 @@ require_once "./simple_html_dom.php";
     if ($_SERVER['REQUEST_METHOD'] == 'POST')
     {
       $link = $_POST['url'];
+      $width = $_POST['width'];
       if (empty($link)) {
         echo 'Url is emty';
       }
       else
       {
         echo $link;
+      }
+
+      if (empty($width)) {
+        echo 'width is emty';
+      }
+      else
+      {
+        echo $width;
       }
     }
 
