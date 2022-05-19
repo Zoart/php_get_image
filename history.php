@@ -55,6 +55,21 @@ require_once "./simple_html_dom.php";
       }
     }
 
+        // function download_image($url, $img_folder)
+    // {
+    //   $file_name = basename($url);
+
+    //   if (file_put_contents('./img/' . $file_name, file_get_contents($url)))
+    //   {
+    //       array_push($img_folder, $file_name);
+    //       echo 'Downloaded successfully';
+    //   }
+    //   else
+    //   {
+    //     echo "failed";
+    //   }
+    // }
+
     $html = file_get_html($link);
     
     $i = 0;

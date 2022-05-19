@@ -9,6 +9,8 @@ require_once "./simple_html_dom.php";
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   <link rel="stylesheet" href="./styles/index.css">
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+  <script type="text/javascript" src="./script/ajax.js"></script>
 </head>
 <body class="page">
   <section class="header">
@@ -19,7 +21,7 @@ require_once "./simple_html_dom.php";
 
   <section class="input">
 
-    <form method="post" 
+    <form method="post" id="ajax-form"
     action="
     <?php
     echo $_SERVER['PHP_SELF'];
@@ -31,25 +33,13 @@ require_once "./simple_html_dom.php";
     type='text' name='width'>
     <input class="input-area" placeholder="min height" 
     type='text' name='height'>
-    <input type="submit">
+    <input type="submit" id="btn">
     </form>
+
+    <div id="result_form"></div>
 
     <?php
     $img_folder = array();
-    // function download_image($url, $img_folder)
-    // {
-    //   $file_name = basename($url);
-
-    //   if (file_put_contents('./img/' . $file_name, file_get_contents($url)))
-    //   {
-    //       array_push($img_folder, $file_name);
-    //       echo 'Downloaded successfully';
-    //   }
-    //   else
-    //   {
-    //     echo "failed";
-    //   }
-    // }
     
     function crop_image($url, $img_folder)
     {
@@ -64,18 +54,27 @@ require_once "./simple_html_dom.php";
       if ($im2 !== FALSE)
       {
         // header('Content-type: image/png');
+        $text_color = imagecolorallocate($im2, 255,255,255);
+        $font_path = './font/Astral Sisters.ttf';
+        $size=17;
+        $angle=15;
+        $left=45;
+        $top=100;
+        // imagestring($im2, 5, 5, 15, 'Test', $text_color); simpl
+        imagettftext($im2, $size,$angle,$left,$top, 
+        $text_color, $font_path, 'Png 200 x 200 px');
         $file_path = './crop/' . $file_name;
-          imagepng($im2, $file_path);
-          array_push($img_folder, $file_name);
+        imagepng($im2, $file_path);
+        
         imagedestroy($im2);
         
       }
       imagedestroy($im);
 
+
       $img_html = '<img src="' . $file_path . '">';
       echo $img_html;
       
-      return $file_path;
     }
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST')
@@ -117,38 +116,26 @@ require_once "./simple_html_dom.php";
     $html = file_get_html($link);
     
     
-    $i = 0;
     
     foreach ($html->find('img') as $el)
     {
-      $i++;
-      echo 'iteration: ' . $i . '<br>';
-      if ($i > 20) 
-      {
-        echo 'Stop!';
-        break;
-      }
       $pos_www = strpos($el->src, 'www');
       $pos_http = strpos($el->src, 'http');
       if ($pos_www === false and $pos_http === false)
       {
-        echo '<br>' . 'not found' . '<br>';
-        echo $el->src . '<br>';
+        // echo '<br>' . 'not found' . '<br>';
       }
       else
       {
         if ($el->width >= $width and $el->height >= $height)
         {
-          echo '<br>' . $el->src . '<br>';
+          // echo '<br>' . $el->src . '<br>';
           echo '<img src="' . $el->src . '">' . '<br>';
-          echo '<br>' . 'Width: ' . $el->width . '<br>';
-          echo '<br>' . 'Height: ' . $el->height . '<br>';
-          echo $el->src;
+          // echo '<br>' . 'Width: ' . $el->width . '<br>';
+          // echo '<br>' . 'Height: ' . $el->height . '<br>';
+          // echo $el->src;
           crop_image($el->src, $img_folder);
 
-          
-          
-          // download_image($el->src, $img_folder);
         }
         else 
         {
@@ -157,7 +144,6 @@ require_once "./simple_html_dom.php";
         
       }
     }
-    var_dump($img_folder);
     ?>
     
   </section>
