@@ -42,7 +42,7 @@ require_once "./simple_html_dom.php";
 
     //   if (file_put_contents('./img/' . $file_name, file_get_contents($url)))
     //   {
-    //       array_push($img_folder, $file_name);;
+    //       array_push($img_folder, $file_name);
     //       echo 'Downloaded successfully';
     //   }
     //   else
@@ -51,7 +51,7 @@ require_once "./simple_html_dom.php";
     //   }
     // }
     
-    function crop_image($url)
+    function crop_image($url, $img_folder)
     {
       $file_name = basename($url);
       $im = imagecreatefrompng($url);
@@ -63,11 +63,19 @@ require_once "./simple_html_dom.php";
       $im2 = imagecrop($im, $settings_array);
       if ($im2 !== FALSE)
       {
-        header('Content-type: image/png');
-          imagepng($im2, './crop/' . $file_name);
+        // header('Content-type: image/png');
+        $file_path = './crop/' . $file_name;
+          imagepng($im2, $file_path);
+          array_push($img_folder, $file_name);
         imagedestroy($im2);
+        
       }
       imagedestroy($im);
+
+      $img_html = '<img src="' . $file_path . '">';
+      echo $img_html;
+      
+      return $file_path;
     }
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST')
@@ -136,6 +144,10 @@ require_once "./simple_html_dom.php";
           echo '<br>' . 'Width: ' . $el->width . '<br>';
           echo '<br>' . 'Height: ' . $el->height . '<br>';
           echo $el->src;
+          crop_image($el->src, $img_folder);
+
+          
+          
           // download_image($el->src, $img_folder);
         }
         else 
