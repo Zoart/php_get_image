@@ -25,22 +25,25 @@ require_once "./simple_html_dom.php";
     echo $_SERVER['PHP_SELF'];
     ?>
     ">
-    <input class="input-area" placeholder="input url here" 
+    <input class="input-area" placeholder="url" 
     type='text' name='url'>
-    <input class="input-area" placeholder="input min width of image" 
+    <input class="input-area" placeholder="min width" 
     type='text' name='width'>
+    <input class="input-area" placeholder="min height" 
+    type='text' name='height'>
     <input type="submit">
     </form>
 
     <?php
-
-    function download_image($url)
+    $img_folder = array();
+    function download_image($url, $img_folder)
     {
       $file_name = basename($url);
 
       if (file_put_contents('./img/' . $file_name, file_get_contents($url)))
       {
-        echo 'Downloaded successfully';
+          array_push($img_folder, $file_name);;
+          echo 'Downloaded successfully';
       }
       else
       {
@@ -52,7 +55,9 @@ require_once "./simple_html_dom.php";
     {
       $link = $_POST['url'];
       $width = $_POST['width'];
+      $height = $_POST['height'];
 
+      // link
       if (empty($link)) {
         echo 'Url is emty';
       }
@@ -61,12 +66,24 @@ require_once "./simple_html_dom.php";
         echo $link;
       }
 
+
+      // width
       if (empty($width)) {
-        echo 'width is emty';
+        echo 'width is empty';
       }
       else
       {
         echo $width;
+      }
+
+
+      // height
+      if (empty($height)) {
+        echo 'height is empty';
+      }
+      else
+      {
+        echo $height;
       }
     }
 
@@ -74,9 +91,11 @@ require_once "./simple_html_dom.php";
     
     
     $i = 0;
+    
     foreach ($html->find('img') as $el)
     {
       $i++;
+      echo 'iteration: ' . $i . '<br>';
       if ($i > 20) 
       {
         echo 'Stop!';
@@ -91,17 +110,22 @@ require_once "./simple_html_dom.php";
       }
       else
       {
-        if ($el->width >= $width)
+        if ($el->width >= $width and $el->height >= $height)
         {
-          echo $el->src . '<br>';
+          echo '<br>' . $el->src . '<br>';
           echo '<img src="' . $el->src . '">' . '<br>';
-          echo 'Width: ' . $el->width . '<br>';
-          download_image($el->src);
+          echo '<br>' . 'Width: ' . $el->width . '<br>';
+          echo '<br>' . 'Height: ' . $el->height . '<br>';
+          download_image($el->src, $img_folder);
+        }
+        else 
+        {
+          echo $el->width . '<br>';
         }
         
       }
     }
-    
+    var_dump($img_folder);
     ?>
     
   </section>

@@ -75,8 +75,8 @@ require_once "./simple_html_dom.php";
       }
       else
       {
-        echo $pos_www . $pos_http . '<br>';
-        echo $el->src . '<br>';
+        echo '<br>' . $pos_www . $pos_http . '<br>';
+        echo '<br>' . $el->src . '<br>';
         echo '<img src="' . $el->src . '">' . '<br>';
         echo 'Width: ' . $el->width . '<br>';
       }
