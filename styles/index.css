@@ -29,3 +29,11 @@
   padding: 5px 5px;
   font-size: 1.9em;
 }
+
+.result_form {
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(200px, 1fr));
+  max-height: 100%;
+}
