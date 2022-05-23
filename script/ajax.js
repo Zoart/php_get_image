@@ -1,3 +1,5 @@
+let history;
+
 $(document).ready(()=>{
   $('#btn').click(() => {
     sendAjaxForm('result_form', 'ajax_form', './action_ajax_form.php');
@@ -13,9 +15,7 @@ function sendAjaxForm(result_form, ajax_form, url) {
     data: $('#'+ajax_form).serialize(),
     success: function(response) {
       result = $.parseJSON(response);
-      
-      $('#result_form').html(result); //What post
-      // alert(response);
+      $('#result_form').html( + result);
     },
     error: function(response) {
       $('#result_form').html('Failed')
@@ -23,7 +23,3 @@ function sendAjaxForm(result_form, ajax_form, url) {
   })
 }
 
-// for (let i = 0; i < result.length; i++)
-      //   {
-          // $('#result_form').html(result[i]); //What post
-        // }

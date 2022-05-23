@@ -21,18 +21,28 @@ require_once "./simple_html_dom.php";
 
   <section class="input">
 
-    <form method="post" id="ajax_form" action="">
-    <input class="input-area" placeholder="url" 
-    type='text' name='url'>
-    <input class="input-area" placeholder="min width" 
-    type='text' name='width'>
-    <input class="input-area" placeholder="min height" 
-    type='text' name='height'>
-    <input type="submit" id="btn">
+    <form class='input__form' method="post" id="ajax_form" action="">
+
+      <input class="form__input" placeholder="url" 
+      type='text' name='url'>
+      <input class="form__input" placeholder="min width" 
+      type='text' name='width' style="width: 140px;">
+      <input class="form__input" placeholder="min height" 
+      type='text' name='height' style="width: 140px;">
+
+      <input class='submit-btn' type="submit" id="btn">
     </form>
 
-    <div id="result_form" class="result_form"></div>
-
   </section>
+
+  <section class="result">
+  <div id="result_form" class="result_form">
+      <?php
+        require './history.php';
+      ?>
+  </div>
+  </section>
+  
+
 </body>
 </html>

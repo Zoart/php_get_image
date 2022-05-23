@@ -1,0 +1,14 @@
+.form__input {
+  margin: 0 0 0 10px;
+  padding: 5px 5px;
+  font-size: 1.8em;
+  background-color: rgb(222, 222, 231);
+  border: none;
+  color: rgba(49, 10, 49, 0.717);
+  box-sizing: border-box;
+  border-radius: 5px;
+}
+
+.form__input:hover {
+  box-shadow: 0 0 2px 5px rgb(96, 3, 158);
+}

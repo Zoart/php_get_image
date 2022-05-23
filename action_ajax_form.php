@@ -59,27 +59,33 @@ if (isset($_POST['url']) && isset($_POST['width'])
   }
 
 
-
-    $html = file_get_html($link);
-
-    foreach ($html->find('img') as $el)
+    if (file_get_html($link) !== false)
     {
+      $html = file_get_html($link);
 
-      $pos_www = strpos($el->src, 'www');
-      $pos_http = strpos($el->src, 'http');
-
-      $jpg = strpos($el->src, 'jpg');
-      $png = strpos($el->src, 'png');
-
-
-      if (($pos_www !== false or $pos_http !== false) && 
-      ($jpg !== false or $png !== false))
+      foreach ($html->find('img') as $el)
       {
-        array_push($result, crop_image($el->src));
-      }
-        
-    }
-  
 
-  echo json_encode($result);
+        $pos_www = strpos($el->src, 'www');
+        $pos_http = strpos($el->src, 'http');
+
+        $jpg = strpos($el->src, 'jpg');
+        $png = strpos($el->src, 'png');
+
+
+        if (($pos_www !== false or $pos_http !== false) && 
+        ($jpg !== false or $png !== false))
+        {
+          array_push($result, crop_image($el->src));
+        }
+        
+      }
+      echo json_encode($result);
+      }
+      else
+      {
+        $result = ['<p class="access">Access closed</p>'];
+        echo json_encode($result);
+      }
+    
 }
