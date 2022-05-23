@@ -22,21 +22,20 @@ require_once "./simple_html_dom.php";
   <section class="input">
 
     <form class='input__form' method="post" id="ajax_form" action="">
-
       <input class="form__input" placeholder="url" 
       type='text' name='url'>
       <input class="form__input" placeholder="min width" 
       type='text' name='width' style="width: 140px;">
       <input class="form__input" placeholder="min height" 
-      type='text' name='height' style="width: 140px;">
+      type='text' name='height' style="width: 145px;">
 
-      <input class='submit-btn' type="submit" id="btn">
+      <input class='form__btn' type="submit" id="btn">
     </form>
 
   </section>
 
   <section class="result">
-  <div id="result_form" class="result_form">
+  <div id="result__form" class="result__form">
       <?php
         require './history.php';
       ?>

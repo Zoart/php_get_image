@@ -1,13 +1,11 @@
-let history;
-
 $(document).ready(()=>{
   $('#btn').click(() => {
-    sendAjaxForm('result_form', 'ajax_form', './action_ajax_form.php');
+    sendAjaxForm('result__form', 'ajax_form', './action_ajax_form.php');
     return false;
   })
 });
 
-function sendAjaxForm(result_form, ajax_form, url) {
+function sendAjaxForm(result__form, ajax_form, url) {
   $.ajax({
     url: url,
     type: 'POST',
@@ -15,10 +13,11 @@ function sendAjaxForm(result_form, ajax_form, url) {
     data: $('#'+ajax_form).serialize(),
     success: function(response) {
       result = $.parseJSON(response);
-      $('#result_form').html( + result);
+      $('#result__form').html(result);
+      //  alert(response);
     },
     error: function(response) {
-      $('#result_form').html('Failed')
+      $('#result__form').html('Failed')
     }
   })
 }

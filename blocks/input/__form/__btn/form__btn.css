@@ -1,0 +1,14 @@
+.form__btn {
+  margin: 0 0 0 10px;
+  padding: 10px 5px 6px;
+  background-color: rgb(96, 3, 158);
+  color: rgba(216, 216, 216, 0.963);
+  font-size: 1.4em;
+  border-radius: 20px;
+  border: none;
+}
+
+.form__btn:hover {
+  box-sizing: border-box;
+  background-color: rgb(75, 2, 123);
+}

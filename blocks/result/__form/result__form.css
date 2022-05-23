@@ -1,0 +1,8 @@
+.result__form {
+  margin: 40px 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(200px, 1fr));
+  max-height: 100%;
+  gap: 20px;
+}

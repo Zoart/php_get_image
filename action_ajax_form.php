@@ -25,7 +25,6 @@ if (isset($_POST['url']) && isset($_POST['width'])
       $im = imagecreatefrompng($url);
     }
     else {
-      $ret = '<img src="' . $url . '">';
       return 'Error';
     }
   
@@ -48,8 +47,6 @@ if (isset($_POST['url']) && isset($_POST['width'])
       $file_path = './crop/' . $file_name;
       imagepng($im2, $file_path);
       $img_html = '<img src="' . $file_path . '">';
-      $ret = '<img src="' . $url . '">';
-      // $img_html = 'src="' . $file_path;
 
       imagedestroy($im2);
 
